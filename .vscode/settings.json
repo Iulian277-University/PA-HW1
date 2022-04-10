@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "README": "plaintext",
+        "cacheA_in": "plaintext",
+        "cacheB_in": "plaintext",
+        "vector": "cpp",
+        "*.tcc": "cpp"
+    }
+}
