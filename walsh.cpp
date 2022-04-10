@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Position
-{
+struct Position {
     int x;
     int y;
 
@@ -35,8 +34,41 @@ void print_output() {
     fout.close();
 }
 
+bool is_upper_left(int n, int x, int y) {
+    return (x < n / 2 && y < n / 2);
+}
+
+bool is_upper_right(int n, int x, int y) {
+    return (x < n / 2 && y >= n / 2);
+}
+
+bool is_lower_left(int n, int x, int y) {
+    return (x >= n / 2 && y < n / 2);
+}
+
+bool is_lower_right(int n, int x, int y) {
+    return (x >= n / 2 && y >= n / 2);
+}
+
+int walsh(int n, int x, int y) {
+    // Base case: W_1 = [0]
+    if (n == 1)
+        return 0;
+
+    if (is_upper_left(n, x, y))
+        return walsh(n / 2, x, y);
+    else if (is_upper_right(n, x, y))
+        return walsh(n / 2, x, y - n / 2);
+    else if (is_lower_left(n, x, y))
+        return walsh(n / 2, x - n / 2, y);
+    else if (is_lower_right(n, x, y))
+        return 1 - walsh(n / 2, x - n / 2, y - n / 2);
+}
+
 void get_result(int n, int x, int y) {
-    res.push_back(-1);
+    // Zero indexing
+    x--, y--;
+    res.push_back(walsh(n, x, y));
 }
 
 int main() {
