@@ -1,3 +1,10 @@
+./statistics.cpp:44:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./statistics.cpp:45:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./statistics.cpp:64:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./statistics.cpp:108:  Extra space before last semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]
+./statistics.cpp:114:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./statistics.cpp:138:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+Done processing ./statistics.cpp
 Done processing ./walsh.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 0
+Total errors found: 6
