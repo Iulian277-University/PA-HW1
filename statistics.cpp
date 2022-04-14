@@ -28,7 +28,7 @@ void print_output(int max_words) {
     fout.close();
 }
 
-double count_occ(string str, char ch) {
+int count_occ(string str, char ch) {
     double cnt = 0;
     for (int i = 0; i < str.length(); ++i) {
         if (str[i] == ch)
@@ -38,11 +38,11 @@ double count_occ(string str, char ch) {
 }
 
 bool comparator(string s1, string s2) {
-    // double freq1 = count_occ(s1, CH_DOM) / (1.0 * s1.length());
-    // double freq2 = count_occ(s2, CH_DOM) / (1.0 * s2.length());
-
-    double freq1 = count_occ(s1, CH_DOM) - (s1.length() - count_occ(s1, CH_DOM));
-    double freq2 = count_occ(s2, CH_DOM) - (s2.length() - count_occ(s2, CH_DOM));
+    int occ1 = count_occ(s1, CH_DOM);
+    int occ2 = count_occ(s2, CH_DOM);
+    
+    int freq1 = occ1 - (s1.length() - occ1);
+    int freq2 = occ2 - (s2.length() - occ2);
 
     // Sort descending by `freq` and ascending by `length`
     if (freq1 > freq2)
@@ -54,7 +54,6 @@ bool comparator(string s1, string s2) {
         return true;
     return false;
 }
-
 
 pair<int, int> get_dominant_ch(string word) {
     vector<int> chs_dom_word(26, 0);
@@ -86,14 +85,14 @@ bool has_dominant_ch(string word) {
 int get_result() {
     // letters from `a` to `z`
     vector<int> global_dom_ch(26, 0);
+
+    // for each `word`
     for (int i = 0; i < n; ++i) {
-        //  idx  count
+        //   idx  count
         pair<char, int> curr_dom = get_dominant_ch(words[i]);
         // cout << words[i] << "-" << (char) (curr_dom.first + 'a') << "\n";
         global_dom_ch[curr_dom.first] += curr_dom.second;
     }
-
-    // return -1;
 
     int max_idx  = -1;
     int max_freq = -1;
@@ -131,8 +130,84 @@ int get_result() {
 
 int main() {
     read_input();
-    int res = get_result();
-    // cout << "res:" << res << "\n";
     print_output(get_result());
+    // print_output(MaximumNumberOfString(words, n));
     return 0;
 }
+
+
+// int CalDiff(string s, char ch)
+// {
+//     // Initialize ch count as 0
+//     int chcount = 0;
+ 
+//     // Initialize all other char count as 0
+//     int othercount = 0;
+ 
+//     // Traversing the string
+//     for (int i = 0; i < s.length(); ++i) {
+//         // Current character is ch
+//         if (s[i] == ch)
+//             chcount++;
+//         // Current character is not ch
+//         else
+//             othercount++;
+//     }
+ 
+//     // Return the final result
+//     return (chcount - othercount);
+// }
+ 
+// // Function to calculate maximum number of string
+// // with one character as majority
+// int MaximumNumberOfString(vector<string> A, int N)
+// {
+//     // Initializing ans with 0, to store final answer
+//     int ans = 0;
+ 
+//     // For every character from 'a' to 'z' run loop
+//     for (char ch = 'a'; ch <= 'z'; ch++) {
+ 
+//         // Initialize arr to store character count
+//         // difference
+//         vector<int> arr(N);
+ 
+//         // Traverse every string
+//         for (int i = 0; i < N; i++) {
+ 
+//             // Calculate the required value by
+//             // function call and assign it to arr[i]
+//             arr[i] = CalDiff(A[i], ch);
+//         }
+ 
+//         // Sort arr[] in decreasing order
+//         sort(arr.begin(), arr.end(), greater<int>());
+ 
+//         // Initialize temp and count as 0
+//         int temp = 0, count = 0;
+ 
+//         // Adding the first arr[] element to temp
+//         temp += arr[0];
+ 
+//         // Maintaining j as index
+//         int j = 1;
+ 
+//         // Run loop until temp <= 0
+//         while (temp > 0) {
+//             // Increasing count
+//             count++;
+ 
+//             // Adding temp with next arr[] element
+//             if (j != N)
+//                 temp += arr[j++];
+//             else
+//                 break;
+//         }
+ 
+//         // Set ans as max of ans and count
+//         ans = max(ans, count);
+//     }
+ 
+//     // Returning the final result
+//     return ans;
+// }
