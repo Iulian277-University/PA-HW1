@@ -7,7 +7,6 @@ vector<string> words;
 
 // global dominant ch
 char CH_DOM;
-int  CH_DOM_OCC;
 
 void read_input() {
     ifstream fin("statistics.in");
@@ -47,11 +46,6 @@ bool comparator(string s1, string s2) {
     // Sort descending by `freq` and ascending by `length`
     if (freq1 > freq2)
         return true;
-    if (freq1 < freq2)
-        return false;
-    // eq freq
-    if (s2.length() > s1.length())
-        return true;
     return false;
 }
 
@@ -73,6 +67,8 @@ pair<int, int> get_dominant_ch(string word) {
     // Check `dominant character` condition
     if (max_freq <= word.length() / 2)
         max_freq = 0;
+    else //
+        max_freq = 1; //
     return make_pair(max_idx, max_freq);
 }
 
@@ -83,14 +79,13 @@ bool has_dominant_ch(string word) {
 }
 
 int get_result() {
-    // letters from `a` to `z`
+    // Letters from `a` to `z`
     vector<int> global_dom_ch(26, 0);
 
-    // for each `word`
+    // For each `word`
     for (int i = 0; i < n; ++i) {
         //   idx  count
-        pair<char, int> curr_dom = get_dominant_ch(words[i]);
-        // cout << words[i] << "-" << (char) (curr_dom.first + 'a') << "\n";
+        pair<int, int> curr_dom = get_dominant_ch(words[i]);
         global_dom_ch[curr_dom.first] += curr_dom.second;
     }
 
@@ -103,17 +98,10 @@ int get_result() {
         }
     }
 
-    // we determined the most `dominant global ch`
+    // We determined the most `dominant global ch` over all words
     CH_DOM = (char) (max_idx + 'a') ;
-    // cout << CH_DOM << " " << global_dom_ch[max_idx] << "\n\n";
 
     sort(words.begin(), words.end(), comparator);
-
-    // for (int i = 0; i < n; ++i)
-    //     cout << words[i] << ":" << (double) get_dominant_ch(words[i]).second / (double) words[i].length() << "\n";
-
-    // for (int i = 0; i < n; ++i)
-    //     cout << words[i] << "\n";
 
     int max_words = 0;
     string max_str = "";
@@ -131,83 +119,5 @@ int get_result() {
 int main() {
     read_input();
     print_output(get_result());
-    // print_output(MaximumNumberOfString(words, n));
     return 0;
 }
-
-
-// int CalDiff(string s, char ch)
-// {
-//     // Initialize ch count as 0
-//     int chcount = 0;
- 
-//     // Initialize all other char count as 0
-//     int othercount = 0;
- 
-//     // Traversing the string
-//     for (int i = 0; i < s.length(); ++i) {
-//         // Current character is ch
-//         if (s[i] == ch)
-//             chcount++;
-//         // Current character is not ch
-//         else
-//             othercount++;
-//     }
- 
-//     // Return the final result
-//     return (chcount - othercount);
-// }
- 
-// // Function to calculate maximum number of string
-// // with one character as majority
-// int MaximumNumberOfString(vector<string> A, int N)
-// {
-//     // Initializing ans with 0, to store final answer
-//     int ans = 0;
- 
-//     // For every character from 'a' to 'z' run loop
-//     for (char ch = 'a'; ch <= 'z'; ch++) {
- 
-//         // Initialize arr to store character count
-//         // difference
-//         vector<int> arr(N);
- 
-//         // Traverse every string
-//         for (int i = 0; i < N; i++) {
- 
-//             // Calculate the required value by
-//             // function call and assign it to arr[i]
-//             arr[i] = CalDiff(A[i], ch);
-//         }
- 
-//         // Sort arr[] in decreasing order
-//         sort(arr.begin(), arr.end(), greater<int>());
- 
-//         // Initialize temp and count as 0
-//         int temp = 0, count = 0;
- 
-//         // Adding the first arr[] element to temp
-//         temp += arr[0];
- 
-//         // Maintaining j as index
-//         int j = 1;
- 
-//         // Run loop until temp <= 0
-//         while (temp > 0) {
-//             // Increasing count
-//             count++;
- 
-//             // Adding temp with next arr[] element
-//             if (j != N)
-//                 temp += arr[j++];
-//             else
-//                 break;
-//         }
- 
-//         // Set ans as max of ans and count
-//         ans = max(ans, count);
-//     }
- 
-//     // Returning the final result
-//     return ans;
-// }
