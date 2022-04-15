@@ -1,15 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Object {
-    int weight; // operations
-    int points; // price (reward)
-
-    Object(int _weight, int _points)
-    : weight(_weight)
-    , points(_points) { }
-};
-
 // Input
 int n, k;
 vector<int> target;
@@ -19,16 +10,19 @@ vector<int> operations;
 vector<int> req_op;
 
 void read_input() {
-    ifstream fin("data.in");
-    // ifstream fin("prinel.in");
+    // ifstream fin("data.in");
+    ifstream fin("prinel.in");
     fin >> n >> k;
 
     int x;
-    for (int i = 0; i < n; ++i) {
+    // target.push_back(-1); // for 1-indexing
+    for (int i = 1; i <= n; ++i) {
         fin >> x;
         target.push_back(x);
     }
-    for (int i = 0; i < n; ++i) {
+
+    // points.push_back(-1); // for 1-indexing
+    for (int i = 1; i <= n; ++i) {
         fin >> x;
         points.push_back(x);
     }
@@ -37,8 +31,8 @@ void read_input() {
 }
 
 void print_output(int res) {
-    ofstream fout("data.out");
-    // ofstream fout("prinel.out");
+    // ofstream fout("data.out");
+    ofstream fout("prinel.out");
     fout << res << "\n";
     fout.close();
 }
@@ -52,13 +46,19 @@ int get_max_of_vector(vector<int> arr) {
     return max;
 }
 
-/* [TODO]: Improve this function */
-int get_largest_divisor(int x) {
-    for (int i = 2; i <= x; ++i) {
-        if (x % i == 0)
-            return x / i;
+vector<int> get_divisors(int x) {
+    vector<int> divisors;
+    for (int i = 1; i <= sqrt(x); ++i) {
+        if (x % i == 0) {
+            if (x / i == i)
+                divisors.push_back(i);
+            else {
+                divisors.push_back(i);
+                divisors.push_back(x / i);
+            }            
+        }
     }
-    return -1;
+    return divisors;
 }
 
 void compute_required_operations_dp() {
@@ -70,85 +70,91 @@ void compute_required_operations_dp() {
     operations[1] =  0;
     operations[2] =  1;
     // Complete the `operations` array (dp)
-    for (int i = 3; i <= operations.size(); ++i)
-        operations[i] = 1 + operations[i - get_largest_divisor(i)];
+    for (int i = 3; i <= operations.size(); ++i) {
+        int min_op = INT_MAX;
+        vector <int> divisors = get_divisors(i);
+        for (int j = 0; j < divisors.size(); ++j) {
+            if (divisors[j] != i)
+                min_op = min(min_op, operations[i - divisors[j]]);
+        }
+        operations[i] = 1 + min_op;
+    }
 }
 
 int get_result() {
     return -1;    
 }
 
-bool comparator(Object &a, Object &b) {
-    return 1.0 * a.weight / a.points < 1.0 * b.weight / b.points;
+// n   = numărul de obiecte din colecție
+// W   = capacitatea maximă a rucsacului
+// (w[i], p[i]) = caracteristicile obiectului i (i = 1 : n)
+int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
+    // dp este o matrice de dimensiune (n + 1) x (W + 1)
+    // pentru că folosim dp[0][*] pentru mulțimea vidă
+    //                   dp[*][0] pentru situația în care ghiozdanul are capacitate 0
+    vector< vector<int> > dp(n + 1, vector<int>(W + 1, 0));
+ 
+    // cazul de bază
+    for (int cap = 0; cap <= W; ++cap) {
+        dp[0][cap] = 0;
+    }
+ 
+    // cazul general
+    for (int i = 1; i <= n; ++i) {
+        for (int cap = 0; cap <= W; ++cap) {
+            // nu folosesc obiectul i => e soluția de la pasul i - 1
+            dp[i][cap] = dp[i-1][cap];
+ 
+            // folosesc obiectul i, deci trebuie să rezerv w[i] unități în rucsac
+            // înseamnă ca înainte trebuie să ocup maxim cap - w[i] unități
+            if (cap - w[i] >= 0)
+                dp[i][cap] = max(dp[i][cap], dp[i-1][cap - w[i]] + p[i]);
+        }
+    }
+ 
+    return dp[n][W];
+}
+
+// val[] is for storing maximum profit for each weight
+// wt[] is for storing weights
+// n number of item
+// W maximum capacity of bag
+// dp[W+1] to store final result
+int KnapSack(vector<int> &val, vector<int> &wt, int n, int W)
+{
+    // array to store final result
+    //dp[i] stores the profit with KnapSack capacity "i"
+    int dp[W+1];
+     
+    //initially profit with 0 to W KnapSack capacity is 0
+    memset(dp, 0, sizeof(dp));
+ 
+    // iterate through all items
+    for(int i=0; i<n; i++)
+        //traverse dp array from right to left
+        for(int j=W; j>=wt[i]; j--)
+            dp[j] = max(dp[j] , val[i] + dp[j-wt[i]]);
+    /*above line finds out maximum of  dp[j](excluding ith element value)
+      and val[i] + dp[j-wt[i]] (including ith element value and the
+      profit with "KnapSack capacity - ith element weight") */   
+    return dp[W];
 }
 
 int main() {
     read_input();
     compute_required_operations_dp();
 
+    // Vector of `required operations`
+    // req_op.push_back(-1); // for 1-indexing
     for (int i = 0; i < n; ++i)
         req_op.push_back(operations[target[i]]);
 
     // for (int i = 0; i < n; ++i)
-    //     cout << target[i] << " : " << req_op[i] << "\n";
+        // cout << target[i] << ":" << req_op[i] << "\n";
 
-    // Create the objects
-    vector<Object> objs;
-    for (int i = 0; i < n; ++i)
-        objs.push_back(Object(operations[target[i]], points[i]));
+    // int res = rucsac(n, k, req_op, points);
+    int res = KnapSack(points, req_op, n, k);
+    print_output(res);
 
-    // for (int i = 0; i < n; ++i) {
-    //     cout << objs[i].weight << " : " << objs[i].points << "\n";
-    // }
-
-
-    /* [TODO]: Change to continous knapsack problem */
-    /* https://ocw.cs.pub.ro/courses/pa/laboratoare/laborator-03 */
-
-    // Sort ascending by the fraction `req_op / points`
-    sort(objs.begin(), objs.end(), comparator);
-
-    for (int i = 0; i < n; ++i)
-        cout << objs[i].points << " ";
-    cout << "\n";
-
-    for (int i = 0; i < n; ++i)
-        cout << objs[i].weight << " ";
-    cout << "\n";
-
-    for (int i = 0; i < n; ++i)
-        cout << 1.0 * objs[i].points / objs[i].weight << " ";
-    cout << "\n";
-
-    // k - maximum operations (max capacity from the knapsack problem)
-    int maximum = 0;
-    for (int i = 0; i < n; ++i) {
-        if (k == 0)
-            break;
-        
-        if (objs[i].weight <= k) {
-            maximum += objs[i].points;
-            k -= objs[i].weight;
-        }
-    }
-
-    // cout << maximum << "\n";
-
-    print_output(maximum);
     return 0;
 }
-
-
-
-/* [TODO]: Change to `dp` instead of `recursion` */
-// int required_operations(int x) {
-//     if (x == 0)
-//         return -1;
-//     if (x == 1)
-//         return 0;
-//     if (x == 2)
-//         return 1;
-
-//     return 1 + required_operations(x - get_largest_divisor(x));
-// }
-

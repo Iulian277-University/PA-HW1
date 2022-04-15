@@ -1,7 +1,28 @@
-./statistics.cpp:43:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./statistics.cpp:58:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./statistics.cpp:103:  Extra space before last semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]
+./prinel.cpp:18:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./prinel.cpp:24:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./prinel.cpp:55:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
+./prinel.cpp:58:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:85:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:94:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./prinel.cpp:96:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./prinel.cpp:96:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:101:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./prinel.cpp:101:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:107:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./prinel.cpp:107:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:108:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./prinel.cpp:112:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./prinel.cpp:112:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:117:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./prinel.cpp:117:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./prinel.cpp:126:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./statistics.cpp:42:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./statistics.cpp:57:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./statistics.cpp:70:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./statistics.cpp:71:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./statistics.cpp:102:  Extra space before last semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]
+Done processing ./prinel.cpp
 Done processing ./statistics.cpp
 Done processing ./walsh.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 3
+Total errors found: 23
