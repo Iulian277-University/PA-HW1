@@ -5,9 +5,9 @@ using namespace std;
 int n, k;
 vector<int> target;
 vector<int> points;
-//
+// Helper vectors
 vector<int> operations;
-vector<int> req_op;
+vector<int> req_ops;
 
 void read_input() {
     // ifstream fin("data.in");
@@ -15,14 +15,12 @@ void read_input() {
     fin >> n >> k;
 
     int x;
-    // target.push_back(-1); // for 1-indexing
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 0; i < n; ++i) {
         fin >> x;
         target.push_back(x);
     }
 
-    // points.push_back(-1); // for 1-indexing
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 0; i < n; ++i) {
         fin >> x;
         points.push_back(x);
     }
@@ -37,6 +35,11 @@ void print_output(int res) {
     fout.close();
 }
 
+/**
+ * This function returns the maximum element from a given vector
+ * Time complexity:  O(n)
+ * Space complexity: O(1)
+*/
 int get_max_of_vector(vector<int> arr) {
     int max = -1;
     for (int i = 0; i < arr.size(); ++i) {
@@ -46,6 +49,12 @@ int get_max_of_vector(vector<int> arr) {
     return max;
 }
 
+/**
+ * This function returns the divisors of a given number `x`
+ * Time complexity:  O(sqrt(n))
+ * Space complexity: O(n), but in practice we can consider it O(n^(1/3))
+ * [https://codeforces.com/blog/entry/14463]
+*/
 vector<int> get_divisors(int x) {
     vector<int> divisors;
     for (int i = 1; i <= sqrt(x); ++i) {
@@ -61,100 +70,69 @@ vector<int> get_divisors(int x) {
     return divisors;
 }
 
+/**
+ * [TODO]: Doc
+*/
 void compute_required_operations_dp() {
+    // Initialize the `operations` array with zeros
     int max_el_vect_a = get_max_of_vector(target);
     for (int i = 0; i <= max_el_vect_a; ++i)
         operations.push_back(0);
+
     // Base cases
-    operations[0] = -1;
+    operations[0] =  INT_MAX;
     operations[1] =  0;
     operations[2] =  1;
-    // Complete the `operations` array (dp)
+
+    // Complete the `operations` array, using the following recurence:
+    // operations[i] = 1 + min(dp[i - div_i]), where `div_i` are all divisors of `i`,
+    // excluding itself (that's the reason of setting operations[0] to `INT_MAX`)
     for (int i = 3; i <= operations.size(); ++i) {
         int min_op = INT_MAX;
         vector <int> divisors = get_divisors(i);
-        for (int j = 0; j < divisors.size(); ++j) {
-            if (divisors[j] != i)
-                min_op = min(min_op, operations[i - divisors[j]]);
-        }
+        for (int j = 0; j < divisors.size(); ++j)
+            min_op = min(min_op, operations[i - divisors[j]]);
         operations[i] = 1 + min_op;
     }
 }
 
-int get_result() {
-    return -1;    
-}
-
-// n   = numărul de obiecte din colecție
-// W   = capacitatea maximă a rucsacului
-// (w[i], p[i]) = caracteristicile obiectului i (i = 1 : n)
-int rucsac(int n, int W, vector<int> &w, vector<int> &p) {
-    // dp este o matrice de dimensiune (n + 1) x (W + 1)
-    // pentru că folosim dp[0][*] pentru mulțimea vidă
-    //                   dp[*][0] pentru situația în care ghiozdanul are capacitate 0
-    vector< vector<int> > dp(n + 1, vector<int>(W + 1, 0));
- 
-    // cazul de bază
-    for (int cap = 0; cap <= W; ++cap) {
-        dp[0][cap] = 0;
-    }
- 
-    // cazul general
-    for (int i = 1; i <= n; ++i) {
-        for (int cap = 0; cap <= W; ++cap) {
-            // nu folosesc obiectul i => e soluția de la pasul i - 1
-            dp[i][cap] = dp[i-1][cap];
- 
-            // folosesc obiectul i, deci trebuie să rezerv w[i] unități în rucsac
-            // înseamnă ca înainte trebuie să ocup maxim cap - w[i] unități
-            if (cap - w[i] >= 0)
-                dp[i][cap] = max(dp[i][cap], dp[i-1][cap - w[i]] + p[i]);
-        }
-    }
- 
-    return dp[n][W];
-}
-
-// val[] is for storing maximum profit for each weight
-// wt[] is for storing weights
-// n number of item
-// W maximum capacity of bag
-// dp[W+1] to store final result
-int KnapSack(vector<int> &val, vector<int> &wt, int n, int W)
+/**
+ * [TODO]: Doc
+ * @param
+ * @return
+*/
+int knap_sack(int n, int W, vector<int> &weights, vector<int> &prices)
 {
-    // array to store final result
-    //dp[i] stores the profit with KnapSack capacity "i"
-    int dp[W+1];
-     
-    //initially profit with 0 to W KnapSack capacity is 0
-    memset(dp, 0, sizeof(dp));
+    // dp[i] stores the profit with knapsack capacity `i`
+    // Initially the profit with `0-to-W` capacity is 0 
+    int dp[W + 1] = {0};
  
-    // iterate through all items
-    for(int i=0; i<n; i++)
-        //traverse dp array from right to left
-        for(int j=W; j>=wt[i]; j--)
-            dp[j] = max(dp[j] , val[i] + dp[j-wt[i]]);
-    /*above line finds out maximum of  dp[j](excluding ith element value)
-      and val[i] + dp[j-wt[i]] (including ith element value and the
-      profit with "KnapSack capacity - ith element weight") */   
+    // Iterate through all the items, then traverse `dp` array from right to left
+    // This will find out the maximum of 2 things: (1) `dp[cap]` and (2) `dp[cap - weights[i]] + prices[i]`
+    // (1) [Excluding the i-th item price]
+    // (2) [Including the i-th item price] and [the profit with `knapsack_cap - ith element weight`]
+    for(int i = 0; i < n; ++i)
+        for(int cap = W; cap >= weights[i]; --cap)
+            dp[cap] = max(dp[cap], dp[cap - weights[i]] + prices[i]);
+    
+    // Return the maximum profit
     return dp[W];
 }
 
-int main() {
-    read_input();
+/* [TODO]: Doc */
+int get_result() {
     compute_required_operations_dp();
 
-    // Vector of `required operations`
-    // req_op.push_back(-1); // for 1-indexing
+    // Vector of `required operations` (only the numbers for the current testcase)
     for (int i = 0; i < n; ++i)
-        req_op.push_back(operations[target[i]]);
+        req_ops.push_back(operations[target[i]]);
 
-    // for (int i = 0; i < n; ++i)
-        // cout << target[i] << ":" << req_op[i] << "\n";
+    return knap_sack(n, k, req_ops, points);
+}
 
-    // int res = rucsac(n, k, req_op, points);
-    int res = KnapSack(points, req_op, n, k);
-    print_output(res);
 
+int main() {
+    read_input();
+    print_output(get_result());
     return 0;
 }
