@@ -4,8 +4,7 @@ using namespace std;
 // Input
 int n;
 vector<string> words;
-
-// global dominant ch
+// Global dominant ch
 char CH_DOM;
 
 void read_input() {
@@ -39,7 +38,7 @@ int count_occ(string str, char ch) {
 bool comparator(string s1, string s2) {
     int occ1 = count_occ(s1, CH_DOM);
     int occ2 = count_occ(s2, CH_DOM);
-    
+
     int freq1 = occ1 - (s1.length() - occ1);
     int freq2 = occ2 - (s2.length() - occ2);
 
@@ -54,7 +53,7 @@ pair<int, int> get_dominant_ch(string word) {
     for (int i = 0; i < word.length(); ++i) {
         chs_dom_word[word[i] - 'a']++;
     }
-    
+
     int max_idx  = -1;
     int max_freq = -1;
     for (int i = 0; i < 26; ++i) {
@@ -67,8 +66,8 @@ pair<int, int> get_dominant_ch(string word) {
     // Check `dominant character` condition
     if (max_freq <= word.length() / 2)
         max_freq = 0;
-    else //
-        max_freq = 1; //
+    else
+        max_freq = 1;
     return make_pair(max_idx, max_freq);
 }
 
@@ -99,7 +98,7 @@ int get_result() {
     }
 
     // We determined the most `dominant global ch` over all words
-    CH_DOM = (char) (max_idx + 'a') ;
+    CH_DOM = (char) (max_idx + 'a');
 
     sort(words.begin(), words.end(), comparator);
 

@@ -1,35 +1,5 @@
-./prinel.cpp:62:  If an else has a brace on one side, it should have it on both  [readability/braces] [5]
-./prinel.cpp:65:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:94:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:103:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-./prinel.cpp:105:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-./prinel.cpp:105:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:110:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-./prinel.cpp:110:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:116:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-./prinel.cpp:116:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:117:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
-./prinel.cpp:123:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-./prinel.cpp:123:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:133:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
-./prinel.cpp:135:  Should have a space between // and comment  [whitespace/comments] [4]
-./prinel.cpp:137:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:138:  Should have a space between // and comment  [whitespace/comments] [4]
-./prinel.cpp:140:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
-./prinel.cpp:140:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./prinel.cpp:142:  Missing spaces around =  [whitespace/operators] [4]
-./prinel.cpp:142:  Missing spaces around <  [whitespace/operators] [3]
-./prinel.cpp:142:  Missing space before ( in for(  [whitespace/parens] [5]
-./prinel.cpp:143:  Should have a space between // and comment  [whitespace/comments] [4]
-./prinel.cpp:144:  Missing spaces around >=  [whitespace/operators] [3]
-./prinel.cpp:144:  Missing space before ( in for(  [whitespace/parens] [5]
-./statistics.cpp:42:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./statistics.cpp:57:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./statistics.cpp:70:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-./statistics.cpp:71:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-./statistics.cpp:102:  Extra space before last semicolon. If this should be an empty statement, use {} instead.  [whitespace/semicolon] [5]
 Done processing ./prinel.cpp
 Done processing ./statistics.cpp
 Done processing ./walsh.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 30
+Total errors found: 0
