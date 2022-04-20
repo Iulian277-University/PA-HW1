@@ -3,6 +3,7 @@ build:
 	g++ statistics.cpp -o statistics
 	g++ prinel.cpp -o prinel
 	# g++ crypto.cpp -o crypto
+	g++ regele.cpp -o regele
 
 run-p1:
 	./walsh
@@ -16,5 +17,8 @@ run-p3:
 run-p4:
 	# ./crypto
 
+run-p5:
+	./regele
+
 clean:
-	rm walsh statistics crypto verif
+	rm walsh statistics crypto regele verif

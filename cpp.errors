@@ -1,6 +1,13 @@
-./statistics.cpp:134:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./regele.cpp:5:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./regele.cpp:6:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./regele.cpp:7:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./regele.cpp:55:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./regele.cpp:125:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./regele.cpp:129:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./regele.cpp:150:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
 Done processing ./prinel.cpp
+Done processing ./regele.cpp
 Done processing ./statistics.cpp
 Done processing ./walsh.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 1
+Total errors found: 7
