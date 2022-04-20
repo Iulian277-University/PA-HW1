@@ -1,0 +1,29 @@
+## Taiatu Iulian - 322CB
+---
+
+## Problem 1 - Walsh Tables (Divide and conquer)
+
+    For this problem I recursively searched in one of the smaller squares (1/4), depending on the current position (x,y) in the matrix.
+
+    When recursively calling the function, I translated the indexes from (x,y) to (a,b) to match the indexes of the smaller matrix.
+
+    Time complexity:  [TODO]
+
+## Problem 2 - Encrypted words (Greedy)
+
+    The idea for this problem is to find the `global_dominant_character` over all words. Then, sort the words desending by `freq` and ascending by `length`.
+    
+    `freq` is defined as being the difference (the occurences of the dominant character) - (the occurences of other characters).
+
+    At the end, concatenate the words wuntil we ran out of a dominant character.
+
+    Time complexity:  O(n * log(n)) + O(n * ALPHABET_SIZE)
+
+## Problem 3 - Target with minimum operations (Dynamic Programming)
+
+    First, I had to compute the minimum required operations for transforming `x` into a `y`, starting with x = 1 and using only the operation [x = x + div(x)], where `div(x)` is a divisor of the current number `x`. The recurrence that I found is op(i) = 1 + min::op(x - divisors_x), where `div_x` is a divisor of `x`, excluding itself
+
+    After that, I extracted only the operations I am interested in (for the numbers in the target array) and performed a `knapsack` algorithm in order to find the "maximum profit". I've used a variation of the classic `knapsack` algorithm (with only a vector instead of a matrix), because I don't need to "reconstruct" the solution, but only the maximum profit can be obtained.
+
+    Time complexity:  O(MAX_TARGET * n) + O (n * k)
+

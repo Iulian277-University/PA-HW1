@@ -9,7 +9,6 @@ char CH_DOM;
 
 void read_input() {
     ifstream fin("statistics.in");
-    // ifstream fin("data.in");
     fin >> n;
     string word;
     for (int i = 0; i < n; ++i) {
@@ -21,11 +20,16 @@ void read_input() {
 
 void print_output(int max_words) {
     ofstream fout("statistics.out");
-    // ofstream fout("data.out");
     fout << max_words << "\n";
     fout.close();
 }
 
+/**
+ * This function counts the number of occurences
+ * of a given character `ch` in a string `str`
+ * Time complexity:  O(n)
+ * Space complexity: O(1)
+ */
 int count_occ(string str, char ch) {
     double cnt = 0;
     for (int i = 0; i < str.length(); ++i) {
@@ -35,6 +39,14 @@ int count_occ(string str, char ch) {
     return cnt;
 }
 
+/**
+ * This is a comparator used for sorting the strings
+ * desending by `freq` and ascending by `length`
+ * `freq` is defined as being the difference between
+ * (the occurences of the dominant character) and (other characters) 
+ * Time complexity:  O(n)
+ * Space complexity: O(1)
+ */
 bool comparator(string s1, string s2) {
     int occ1 = count_occ(s1, CH_DOM);
     int occ2 = count_occ(s2, CH_DOM);
@@ -42,18 +54,29 @@ bool comparator(string s1, string s2) {
     int freq1 = occ1 - (s1.length() - occ1);
     int freq2 = occ2 - (s2.length() - occ2);
 
-    // Sort descending by `freq` and ascending by `length`
+    // Sort descending by `freq`
     if (freq1 > freq2)
         return true;
-    return false;
+    else if (freq1 < freq2)
+        return false;
+
+    // Then ascending by `length`
+    return s1.length() < s2.length();
 }
 
+/**
+ * This function computes the dominant character from a given string
+ * Time complexity:  O(ALPHABET_SIZE)
+ * Space complexity: O(1)
+ */ 
 pair<int, int> get_dominant_ch(string word) {
+    // Create a vector of frequencies
     vector<int> chs_dom_word(26, 0);
     for (int i = 0; i < word.length(); ++i) {
         chs_dom_word[word[i] - 'a']++;
     }
 
+    // Get the most frequent chracter from the given `word`
     int max_idx  = -1;
     int max_freq = -1;
     for (int i = 0; i < 26; ++i) {
@@ -64,16 +87,23 @@ pair<int, int> get_dominant_ch(string word) {
     }
 
     // Check `dominant character` condition
+    int is_dominant;
     if (max_freq <= word.length() / 2)
-        max_freq = 0;
+        is_dominant = 0;
     else
-        max_freq = 1;
-    return make_pair(max_idx, max_freq);
+        is_dominant = 1;
+
+    return make_pair(max_idx, is_dominant);
 }
 
+/**
+ * This function checks if a given `word` has the 
+ * global dominant character `CH_DOM` present in it
+ * Time complexity:  O(n)
+ * Space complexity: O(1)
+ */ 
 bool has_dominant_ch(string word) {
     pair<int, int> dominant = get_dominant_ch(word);
-    // cout << word << ":" << dominant.first << "**" << dominant.second << "\n";
     return (dominant.second != 0) && ((char) (dominant.first + 'a') == CH_DOM);
 }
 
@@ -81,13 +111,14 @@ int get_result() {
     // Letters from `a` to `z`
     vector<int> global_dom_ch(26, 0);
 
-    // For each `word`
+    // Compute the `global_dominant_character` (over all words)
     for (int i = 0; i < n; ++i) {
         //   idx  count
         pair<int, int> curr_dom = get_dominant_ch(words[i]);
         global_dom_ch[curr_dom.first] += curr_dom.second;
     }
 
+    // Get the most frequent chracter over all words
     int max_idx  = -1;
     int max_freq = -1;
     for (int i = 0; i < 26; ++i) {
@@ -97,11 +128,13 @@ int get_result() {
         }
     }
 
-    // We determined the most `dominant global ch` over all words
+    // We determined the most `global_dominant_character` over all words
     CH_DOM = (char) (max_idx + 'a');
 
+    // Sort the words using this `comparator`
     sort(words.begin(), words.end(), comparator);
 
+    // Concatenate words until we run out of a dominant character
     int max_words = 0;
     string max_str = "";
     for (int i = 0; i < n; ++i) {

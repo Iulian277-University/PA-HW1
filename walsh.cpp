@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Position in the matrix: (x, y) coordinates
 struct Position {
     int x;
     int y;
@@ -34,6 +35,13 @@ void print_output() {
     fout.close();
 }
 
+/**
+ * Functions to determine the position of a given point (x, y)
+ * relative to the center of the big matrix
+ * (top_left, top_right, bottom_left, bottom_right)
+ * Time complexity:  O(1)
+ * Space complexity: O(1)
+ */
 bool is_upper_left(int n, int x, int y) {
     return (x < n / 2 && y < n / 2);
 }
@@ -50,11 +58,17 @@ bool is_lower_right(int n, int x, int y) {
     return (x >= n / 2 && y >= n / 2);
 }
 
+/**
+ * This function recursively computes the desired result
+ * Time complexity:  [TODO]
+ * Space complexity: O(1)
+ */ 
 int walsh(int n, int x, int y) {
     // Base case: W_1 = [0]
     if (n == 1)
         return 0;
 
+    // Choose a smaller matrix and recursively call the function
     if (is_upper_left(n, x, y))
         return walsh(n / 2, x, y);
     else if (is_upper_right(n, x, y))

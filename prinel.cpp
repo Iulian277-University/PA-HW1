@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Constants
 #define MAX_N 1000
 #define MAX_K 100000
 #define MAX_TARGET 100000
@@ -14,7 +15,6 @@ int req_ops[MAX_TARGET] = {0};
 vector<int> operations;
 
 void read_input() {
-    // ifstream fin("data.in");
     ifstream fin("prinel.in");
     fin >> n >> k;
 
@@ -33,7 +33,6 @@ void read_input() {
 }
 
 void print_output(int res) {
-    // ofstream fout("data.out");
     ofstream fout("prinel.out");
     fout << res << "\n";
     fout.close();
@@ -107,9 +106,15 @@ void compute_required_operations_dp() {
 }
 
 /**
- * [TODO]: Doc
- * @param
- * @return
+ * This function computes the maximum profit we can obtain
+ * given an array of rewards, an array of weights and a maximum capacity
+ * Time complexity:  O(n * W)
+ * Space complexity: O(W)
+ * @param n         Number of items
+ * @param W         Maximum weight (operations) of the knapsack
+ * @param weights   Array of weights (required operations) for each item
+ * @param prices    Array of prices (rewards) for each item
+ * @return          Maximum profit we can obtain
  */
 int knap_sack(int n, int W, int weights[], int prices[]) {
     // dp[i] stores the profit with knapsack capacity `i`
@@ -130,9 +135,6 @@ int knap_sack(int n, int W, int weights[], int prices[]) {
     return dp[W];
 }
 
-/**
- * [TODO]: Doc
- */
 int get_result() {
     compute_required_operations_dp();
 

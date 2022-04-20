@@ -1,5 +1,6 @@
+./statistics.cpp:134:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
 Done processing ./prinel.cpp
 Done processing ./statistics.cpp
 Done processing ./walsh.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 0
+Total errors found: 1
