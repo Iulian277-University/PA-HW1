@@ -2,7 +2,7 @@ build:
 	g++ walsh.cpp -o walsh
 	g++ statistics.cpp -o statistics
 	g++ prinel.cpp -o prinel
-	# g++ crypto.cpp -o crypto
+	g++ crypto.cpp -o crypto
 	g++ regele.cpp -o regele
 
 run-p1:
@@ -15,7 +15,7 @@ run-p3:
 	./prinel
 
 run-p4:
-	# ./crypto
+	./crypto
 
 run-p5:
 	./regele

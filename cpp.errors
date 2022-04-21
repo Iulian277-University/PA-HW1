@@ -1,13 +1,36 @@
+./crypto.cpp:19:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./crypto.cpp:20:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+./crypto.cpp:58:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+./crypto.cpp:62:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./crypto.cpp:62:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./crypto.cpp:65:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+./crypto.cpp:103:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+./crypto.cpp:108:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./crypto.cpp:108:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./crypto.cpp:112:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./crypto.cpp:112:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./crypto.cpp:116:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./crypto.cpp:116:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./crypto.cpp:119:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+./crypto.cpp:121:  { should almost always be at the end of the previous line  [whitespace/braces] [4]
+./crypto.cpp:127:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./crypto.cpp:132:  Weird number of spaces at line-start.  Are you using a 2-space indent?  [whitespace/indent] [3]
+./crypto.cpp:132:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./crypto.cpp:146:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
 ./regele.cpp:5:  At least two spaces is best between code and comments  [whitespace/comments] [2]
 ./regele.cpp:6:  At least two spaces is best between code and comments  [whitespace/comments] [2]
 ./regele.cpp:7:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-./regele.cpp:55:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./regele.cpp:125:  At least two spaces is best between code and comments  [whitespace/comments] [2]
-./regele.cpp:129:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./regele.cpp:150:  Could not find a newline character at the end of the file.  [whitespace/ending_newline] [5]
+./regele.cpp:59:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./regele.cpp:78:  Do not use variable-length arrays.  Use an appropriately named ('k' followed by CamelCase) compile-time constant for the size.  [runtime/arrays] [1]
+./regele.cpp:79:  Do not use variable-length arrays.  Use an appropriately named ('k' followed by CamelCase) compile-time constant for the size.  [runtime/arrays] [1]
+./regele.cpp:96:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./regele.cpp:105:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./regele.cpp:119:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./regele.cpp:135:  At least two spaces is best between code and comments  [whitespace/comments] [2]
+Done processing ./crypto.cpp
 Done processing ./prinel.cpp
 Done processing ./regele.cpp
 Done processing ./statistics.cpp
 Done processing ./walsh.cpp
 Done processing ./_utils/verif.cpp
-Total errors found: 7
+Total errors found: 29

@@ -60,7 +60,7 @@ bool is_lower_right(int n, int x, int y) {
 
 /**
  * This function recursively computes the desired result
- * Time complexity:  [TODO]
+ * Time complexity:  O(log(n))
  * Space complexity: O(1)
  */ 
 int walsh(int n, int x, int y) {

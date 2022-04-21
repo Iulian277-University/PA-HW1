@@ -7,7 +7,7 @@
 
     When recursively calling the function, I translated the indexes from (x,y) to (a,b) to match the indexes of the smaller matrix.
 
-    Time complexity:  [TODO]
+    Time complexity:  O(log(n))
 
 ## Problem 2 - Encrypted words (Greedy)
 
@@ -25,5 +25,25 @@
 
     After that, I extracted only the operations I am interested in (for the numbers in the target array) and performed a `knapsack` algorithm in order to find the "maximum profit". I've used a variation of the classic `knapsack` algorithm (with only a vector instead of a matrix), because I don't need to "reconstruct" the solution, but only the maximum profit can be obtained.
 
-    Time complexity:  O(MAX_TARGET * n) + O (n * k)
+    Time complexity:  O(n * MAX_TARGET) + O(n * k)
+
+## Problem 4 - Encrypted key
+
+## Problem 5 - Activate cities (Dynamic Programming)
+
+    The idea for this problem is to generate a matrix `dp`, where dp[i][j] represents the required number of dealers for activating `i` cities starting from the `j` position in the array of cities.
+
+    The general recursion rule is: dp[i][j] = cost_of_activation_city[j] + max(dp[i-1][j+2], dp[i-1][j+3], ...). The purpose of looking from `j+2` is to not count the same route twice. 
+
+    Instead of completing a matrix, I used only 2 vectors (last row and current row). I've also traversed each line from right to left to be able to retain the maximum in a variable, instead of re-calculating it at each step.
+
+    Another interesting thing is that the "rows" from the matrix `dp` are repeting after n/2, so I stopped the algorithm after completing n/2 rows.
+
+    At the end, I computed the answers for each question by implementing a modified binary search:
+    If the `target` doesn't exist in the `arr`
+        -> Return the idx of largest element smaller than `target`
+    Otherwise 
+        -> Return the largest idx of the `target` ("rightmost `target`")
+
+    Time complexity:  O(n^2)
 
