@@ -21,4 +21,4 @@ run-p5:
 	./regele
 
 clean:
-	rm walsh statistics crypto regele verif
+	rm walsh statistics prinel crypto regele verif

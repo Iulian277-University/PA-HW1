@@ -1,13 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Constants
+#define MAX_N 2000
+
 // Input
-int n; // number of cities
-vector<int> coord; // coordinates of each city (in ascending order)
-int q; // number of questions
+int n;  // Number of cities
+vector<int> coord;  // Coordinates of each city (in ascending order)
+int q;  // Number of questions
 vector<int> dealers;
 
-// Helper vector
+// Helper vectors
 vector<int> costs;
 vector<int> max_line;
 
@@ -56,7 +59,7 @@ void compute_activation_costs() {
 
     for (int i = 2; i < n; ++i)
         costs.push_back((coord[i] - coord[i - 1]) + (coord[i + 1] - coord[i]));
-    
+
     // Last cost
     costs.push_back(coord[n] - coord[n - 1]);
 }
@@ -75,17 +78,17 @@ void compute_activation_costs() {
  */ 
 void compute_dp_efficient() {
     // 1-indexing
-    int v[n + 1];
-    int old[n + 1];
+    int curr_v[MAX_N + 1];
+    int old_v[MAX_N + 1];
 
     max_line.push_back(-1);
 
     int curr_max = -1;
     // First row (line) of the matrix
     for (int i = 1; i <= n; ++i) {
-        v[i] = costs[i];
-        old[i] = v[i];
-        curr_max = max(curr_max, v[i]);
+        curr_v[i] = costs[i];
+        old_v[i] = curr_v[i];
+        curr_max = max(curr_max, curr_v[i]);
     }
     max_line.push_back(curr_max);
 
@@ -93,7 +96,6 @@ void compute_dp_efficient() {
     // After n/2 the rows are repeting
     int i = 2;
     for (; i <= n / 2; ++i) {
-
         // Complete the row, starting from right to left
         // This allows me to store the `max_ans` at each step
         // instead of calculating it each time for (j+2) to (n)
@@ -102,21 +104,21 @@ void compute_dp_efficient() {
         for (int j = n; j >= 1; --j) {
             if (j == n || j == n - 1)
                 continue;
-            
-            max_ans = max(max_ans, old[j + 2]);
-            v[j] = costs[j] + max_ans;
 
-            curr_max = max(curr_max, v[j]);
+            max_ans = max(max_ans, old_v[j + 2]);
+            curr_v[j] = costs[j] + max_ans;
+
+            curr_max = max(curr_max, curr_v[j]);
         }
         max_line.push_back(curr_max);
 
         // Update `old` vector
         for (int j = 1; j <= n; ++j)
-            old[j] = v[j];
+            old_v[j] = curr_v[j];
     }
 
     // After n/2 rows are repeting, so we can
-    // automatically complete the `max` for each line 
+    // automatically complete the `max` for each line
     for (int j = i; j <= n; ++j)
         max_line.push_back(max_line[i - 1]);
 }
@@ -130,9 +132,9 @@ void compute_dp_efficient() {
  * 
  * Time complexity:  O(n*log(n))
  * Space complexity: O(1)
- */ 
+ */
 int find_max_dealers(vector<int> arr, int target) {
-    int left = 1; // 1-indexing
+    int left = 1;  // 1-indexing
     int right = arr.size() - 1;
     int res = 0;
 

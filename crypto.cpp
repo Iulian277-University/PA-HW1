@@ -16,8 +16,8 @@ using namespace std;
 int N, L;
 string K, S;
 // Helper variables
-vector<string> S_combinations;  // combination of subsequences
-vector<string> K_combinations;  // possible keys
+vector<string> S_combinations;  // Combination of subsequences
+vector<string> K_combinations;  // Possible keys
 
 void read_input() {
     ifstream fin("crypto.in");
@@ -102,24 +102,24 @@ int count(string big_string, string small_string) {
     int n = small_string.length();
 
     int dp[m + 1][n + 1] = {{0}};
- 
+
     // First string empty
     for (int i = 0; i <= n; ++i)
         dp[0][i] = 0;
- 
+
     // Second string empty
     for (int i = 0; i <= m; ++i)
         dp[i][0] = 1;
- 
+
     // Complete the matrix
     for (int i = 1; i <= m; ++i) {
         for (int j = 1; j <= n; ++j) {
-            // If last characters are same
+            // If last characters are the same
             // (1) Consider last characters of both strings
             // (2) Ignore   last character  of `big_string`
             if (big_string[i - 1] == small_string[j - 1])
                 dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];
-            // If last characters are different -> Ignore last character of `big_string`
+            // If last chs are different -> Ignore last ch of `big_string`
             else
                 dp[i][j] = dp[i - 1][j];
         }
@@ -138,7 +138,8 @@ int get_result() {
 
     // Don't store duplicates in the `K_combinations` vector
     sort(K_combinations.begin(), K_combinations.end());
-    vector<string>::iterator ip = unique(K_combinations.begin(), K_combinations.end());
+    vector<string>::iterator ip = unique(K_combinations.begin(),
+                                         K_combinations.end());
     K_combinations.resize(distance(K_combinations.begin(), ip));
 
     // Generate the desired output
