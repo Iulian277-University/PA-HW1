@@ -1,4 +1,4 @@
-## Taiatu Iulian-Marius -- 322CB
+## Taiatu Iulian-Marius - 322CB
 ---
 
 ## Problem 1 - Walsh Tables (Divide and Conquer)
